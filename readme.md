@@ -1,23 +1,23 @@
 # 🔍 Web Scraper Pro
 
-Web Scraper Pro est un **scraper web moderne et sécurisé**, construit avec **Node.js, Express et Cheerio**, offrant une interface utilisateur responsive et une architecture propre basée sur le modèle MVC.
+Web Scraper Pro is a **modern and secure web scraper** built with **Node.js, Express, and Cheerio**, featuring a responsive user interface and a clean MVC-based architecture.
 
 ---
 
-## ✨ Fonctionnalités principales
+## ✨ Main Features
 
-* 🎯 **Scraping complet** : titres, paragraphes, images, liens, métadonnées
-* 🚀 **Performance optimisée** : système de cache (10 minutes)
-* 🔐 **Sécurité avancée** : validation d’URL, anti-SSRF, rate limiting
-* 📊 **Statistiques automatiques** : nombre d’éléments et nombre de mots
-* 🎨 **Interface moderne** : animations, design en dégradé
-* 📱 **Responsive** : compatible mobile, tablette, desktop
-* 📝 **Logs avancés** : Winston pour la journalisation
-* ⚡ **Architecture claire** : routes, contrôleurs, services, utils
+* 🎯 **Full scraping**: titles, paragraphs, images, links, metadata
+* 🚀 **Optimized performance**: 10-minute caching system
+* 🔐 **Advanced security**: URL validation, anti-SSRF protection, rate limiting
+* 📊 **Automatic statistics**: element counting & word count
+* 🎨 **Modern UI**: gradients, animations, smooth interactions
+* 📱 **Responsive design**: works on mobile, tablet, and desktop
+* 📝 **Advanced logs**: Winston logging system
+* ⚡ **Clean architecture**: routes, controllers, services, utils
 
 ---
 
-## 📋 Prérequis
+## 📋 Requirements
 
 * Node.js **>= 16.0.0**
 * npm **>= 8.0.0**
@@ -26,39 +26,39 @@ Web Scraper Pro est un **scraper web moderne et sécurisé**, construit avec **N
 
 ## 🚀 Installation
 
-1. Cloner le projet :
+1. Clone the project:
 
 ```bash
-git clone <votre-repo>
+git clone <your-repo>
 cd web-scraper-pro
 ```
 
-2. Installer les dépendances :
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-3. Créer le fichier `.env` :
+3. Create the `.env` file:
 
 ```bash
 cp .env.example .env
 ```
 
-4. Créer le dossier des logs :
+4. Create the logs folder:
 
 ```bash
 mkdir logs
 ```
 
-5. Lancer le serveur :
+5. Start the server:
 
 ```bash
-npm run dev   # Mode développement
-npm start     # Mode production
+npm run dev   # Development mode
+npm start     # Production mode
 ```
 
-6. Accéder à l’application :
+6. Open the application:
 
 ```
 http://localhost:3000
@@ -66,7 +66,7 @@ http://localhost:3000
 
 ---
 
-## 📁 Structure du projet
+## 📁 Project Structure
 
 ```
 project/
@@ -93,7 +93,7 @@ project/
 
 ---
 
-## 🔧 Configuration (fichier `.env`)
+## 🔧 Environment Configuration (`.env`)
 
 ```env
 PORT=3000
@@ -111,9 +111,9 @@ CACHE_TTL=600
 
 ### **POST /api/scrape**
 
-Scrape une URL et retourne les données extraites.
+Scrapes a URL and returns extracted data.
 
-**Body :**
+**Body:**
 
 ```json
 {
@@ -121,70 +121,72 @@ Scrape une URL et retourne les données extraites.
 }
 ```
 
-**Réponse :**
+**Response includes:**
 
-* Titre
-* Métadonnées
+* Title
+* Metadata
 * Headings
-* Paragraphes
-* Liens
+* Paragraphs
+* Links
 * Images
-* Statistiques
-* Source cache ou non
-
-### **GET /api/cache/stats**
-
-Statistiques du cache.
-
-### **DELETE /api/cache/clear**
-
-Nettoyer le cache.
+* Statistics
+* Cache status
 
 ---
 
-## 🛡️ Sécurité intégrée
+### **GET /api/cache/stats**
 
-* Validation stricte des URLs
-* Protection contre les attaques SSRF
-* Blocage des IP locales et privées
-* Rate limiting (20 requêtes / 15 min)
-* Timeout 10s
-* Taille max de réponse : 10MB
-* Échappement HTML (anti-XSS)
+Returns cache statistics.
+
+### **DELETE /api/cache/clear**
+
+Clears the cache.
+
+---
+
+## 🛡️ Built-in Security
+
+* Strict URL validation
+* SSRF protection
+* Blocking private & local IPs
+* Rate limiting (20 requests / 15 min)
+* 10-second timeout
+* 10MB max response size
+* HTML escaping (XSS protection)
 
 ---
 
 ## 🔄 Limitations
 
-* Ne supporte pas les sites nécessitant JavaScript
-* Ne contourne pas les CAPTCHA
-* Timeout 10 secondes
-* 10MB maximum par réponse
+* Does not support JavaScript-rendered websites
+* Cannot bypass CAPTCHAs
+* 10-second maximum timeout
+* Response size limited to 10MB
 
 ---
 
-## 🚀 Évolutions prévues
+## 🚀 Planned Features
 
-* [ ] Support de Puppeteer (JS rendering)
-* [ ] Export CSV / PDF / JSON
-* [ ] Scraping récursif (crawler)
-* [ ] Authentification
-* [ ] Sélecteurs CSS personnalisés
+* [ ] Puppeteer support (JS rendering)
+* [ ] CSV / PDF / JSON export
+* [ ] Recursive scraping (crawler)
+* [ ] User authentication
+* [ ] Custom CSS selectors
 * [ ] Swagger documentation
-* [ ] Docker
+* [ ] Docker support
 
 ---
 
-## 🤝 Contribution
+## 🤝 Contributing
 
-1. Forkez le projet
-2. Créez une branche
-3. Commitez votre contribution
-4. Ouvrez une Pull Request
+1. Fork the project
+2. Create a new branch
+3. Commit your changes
+4. Open a Pull Request
 
 ---
 
-## 👨‍💻 Auteur
+## 👨‍💻 Author
 
-ElAyachi Nezar
-GitHub : @NezarEa
+**ElAyachi Nezar**
+GitHub: **@NezarEa**
