@@ -29,7 +29,7 @@ Web Scraper Pro is a **modern and secure web scraper** built with **Node.js, Exp
 1. Clone the project:
 
 ```bash
-git clone <your-repo>
+git clone https://github.com/NezarEa/web-scraper.git
 cd web-scraper-pro
 ```
 
@@ -93,20 +93,6 @@ project/
 
 ---
 
-## 🔧 Environment Configuration (`.env`)
-
-```env
-PORT=3000
-NODE_ENV=development
-SCRAPE_TIMEOUT=10000
-LOG_LEVEL=info
-RATE_LIMIT_WINDOW_MS=900000
-RATE_LIMIT_MAX_REQUESTS=20
-CACHE_TTL=600
-```
-
----
-
 ## 📡 API
 
 ### **POST /api/scrape**
@@ -162,27 +148,6 @@ Clears the cache.
 * Cannot bypass CAPTCHAs
 * 10-second maximum timeout
 * Response size limited to 10MB
-
----
-
-## 🚀 Planned Features
-
-* [ ] Puppeteer support (JS rendering)
-* [ ] CSV / PDF / JSON export
-* [ ] Recursive scraping (crawler)
-* [ ] User authentication
-* [ ] Custom CSS selectors
-* [ ] Swagger documentation
-* [ ] Docker support
-
----
-
-## 🤝 Contributing
-
-1. Fork the project
-2. Create a new branch
-3. Commit your changes
-4. Open a Pull Request
 
 ---
 
