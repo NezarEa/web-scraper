@@ -81,45 +81,6 @@ function validateUrl(urlString) {
 }
 
 /**
- * Vérifier si une adresse IP est privée
- * @param {string} hostname - Nom d'hôte ou IP
- * @returns {boolean}
- */
-function isPrivateIP(hostname) {
-    // Vérifier si c'est une adresse IP
-    const ipv4Regex = /^(\d{1,3}\.){3}\d{1,3}$/;
-    
-    if (!ipv4Regex.test(hostname)) {
-        return false;
-    }
-
-    const parts = hostname.split('.').map(Number);
-
-    // Vérifier les plages privées
-    // 10.0.0.0/8
-    if (parts[0] === 10) {
-        return true;
-    }
-
-    // 172.16.0.0/12
-    if (parts[0] === 172 && parts[1] >= 16 && parts[1] <= 31) {
-        return true;
-    }
-
-    // 192.168.0.0/16
-    if (parts[0] === 192 && parts[1] === 168) {
-        return true;
-    }
-
-    // 169.254.0.0/16 (APIPA)
-    if (parts[0] === 169 && parts[1] === 254) {
-        return true;
-    }
-
-    return false;
-}
-
-/**
  * Sanitize une chaîne de caractères
  * @param {string} str - Chaîne à nettoyer
  * @returns {string}
@@ -137,6 +98,5 @@ function sanitizeString(str) {
 
 module.exports = {
     validateUrl,
-    isPrivateIP,
     sanitizeString
 };

@@ -2,48 +2,30 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const logger = require('../utils/logger');
 
-/**
- * Service de scraping web
- */
 const scrapingService = {
-    /**
-     * Scrape une URL et extrait les données
-     * @param {string} url - URL à scraper
-     * @returns {Object} Données extraites
-     */
     async scrape(url) {
         try {
-            // Configuration axios
             const response = await axios.get(url, {
                 headers: {
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                    'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
+                    'Accept-Language': 'en-US,en;q=0.9',
                     'Accept-Encoding': 'gzip, deflate, br',
                     'Connection': 'keep-alive',
                     'Upgrade-Insecure-Requests': '1'
                 },
                 timeout: parseInt(process.env.SCRAPE_TIMEOUT) || 10000,
                 maxRedirects: 5,
-                maxContentLength: 10 * 1024 * 1024, // 10MB max
-                validateStatus: (status) => status < 500 // Accepter les codes < 500
+                maxContentLength: 10 * 1024 * 1024,
+                validateStatus: (status) => status < 500
             });
 
-            // Vérifier le statut
-            if (response.status === 404) {
-                throw new Error('404: Page non trouvée');
-            }
-            if (response.status === 403) {
-                throw new Error('403: Accès refusé');
-            }
-            if (response.status >= 400) {
-                throw new Error(`Erreur HTTP ${response.status}`);
-            }
+            if (response.status === 404) throw new Error('404: Not found');
+            if (response.status === 403) throw new Error('403: Access denied');
+            if (response.status >= 400) throw new Error(`HTTP error ${response.status}`);
 
-            // Parser le HTML
             const $ = cheerio.load(response.data);
 
-            // Extraire les données
             const data = {
                 url,
                 scrapedAt: new Date().toISOString(),
@@ -56,7 +38,6 @@ const scrapingService = {
                 stats: {}
             };
 
-            // Calculer les statistiques
             data.stats = {
                 totalHeadings: data.headings.length,
                 totalParagraphs: data.paragraphs.length,
@@ -68,33 +49,21 @@ const scrapingService = {
             return data;
 
         } catch (error) {
-            if (error.code === 'ECONNABORTED') {
-                throw new Error('timeout: Délai d\'attente dépassé');
-            }
-            if (error.code === 'ENOTFOUND') {
-                throw new Error('DNS: Domaine introuvable');
-            }
-            if (error.code === 'ECONNREFUSED') {
-                throw new Error('Connexion refusée par le serveur');
-            }
+            if (error.code === 'ECONNABORTED') throw new Error('timeout: Connection timeout');
+            if (error.code === 'ENOTFOUND') throw new Error('DNS: Domain not found');
+            if (error.code === 'ECONNREFUSED') throw new Error('Connection refused');
             
-            logger.error('Erreur de scraping:', error.message);
+            logger.error('Scrape error:', error.message);
             throw error;
         }
     },
 
-    /**
-     * Extraire le titre de la page
-     */
     extractTitle($) {
         return $('title').text().trim() || 
                $('h1').first().text().trim() || 
-               'Sans titre';
+               'No title';
     },
 
-    /**
-     * Extraire les métadonnées
-     */
     extractMeta($) {
         return {
             description: $('meta[name="description"]').attr('content') || '',
@@ -106,9 +75,6 @@ const scrapingService = {
         };
     },
 
-    /**
-     * Extraire les titres (h1-h6)
-     */
     extractHeadings($) {
         const headings = [];
         ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].forEach(tag => {
@@ -125,16 +91,11 @@ const scrapingService = {
         return headings;
     },
 
-    /**
-     * Extraire les paragraphes
-     */
     extractParagraphs($) {
         const paragraphs = [];
         $('p').each((i, el) => {
             let text = $(el).text().trim();
-            // Normaliser les espaces
             text = text.replace(/\s+/g, ' ');
-            // Filtrer les paragraphes trop courts
             if (text && text.length > 20) {
                 paragraphs.push(text);
             }
@@ -142,9 +103,6 @@ const scrapingService = {
         return paragraphs;
     },
 
-    /**
-     * Extraire les liens
-     */
     extractLinks($, baseUrl) {
         const links = [];
         const seen = new Set();
@@ -153,7 +111,6 @@ const scrapingService = {
             let href = $(el).attr('href');
             if (!href) return;
 
-            // Convertir les URLs relatives en absolues
             try {
                 if (href.startsWith('/') || href.startsWith('./') || href.startsWith('../')) {
                     href = new URL(href, baseUrl).href;
@@ -162,12 +119,11 @@ const scrapingService = {
                 return;
             }
 
-            // Filtrer les liens valides
             if (href.startsWith('http') && !seen.has(href)) {
                 seen.add(href);
                 links.push({
                     url: href,
-                    text: $(el).text().trim() || 'Sans texte'
+                    text: $(el).text().trim() || 'Link'
                 });
             }
         });
@@ -175,9 +131,6 @@ const scrapingService = {
         return links;
     },
 
-    /**
-     * Extraire les images
-     */
     extractImages($, baseUrl) {
         const images = [];
         const seen = new Set();
@@ -186,7 +139,6 @@ const scrapingService = {
             let src = $(el).attr('src');
             if (!src) return;
 
-            // Convertir les URLs relatives en absolues
             try {
                 if (src.startsWith('/') || src.startsWith('./') || src.startsWith('../')) {
                     src = new URL(src, baseUrl).href;
@@ -208,9 +160,6 @@ const scrapingService = {
         return images;
     },
 
-    /**
-     * Compter les mots dans les paragraphes
-     */
     countWords(paragraphs) {
         return paragraphs.reduce((count, p) => {
             return count + p.split(/\s+/).length;

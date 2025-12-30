@@ -1,24 +1,23 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Scraper Pro</title>
+    <title>Web Scraper</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🔍 Web Scraper Pro</h1>
-            <p class="subtitle">Extraire les données d'une page web en un clic</p>
+            <h1>Web Scraper</h1>
+            <p>Extract data from any webpage</p>
         </header>
 
         <main>
-            <!-- Formulaire -->
             <section class="form-section">
                 <form id="scraperForm">
                     <div class="form-group">
-                        <label for="url">URL de la page à scraper :</label>
+                        <label for="url">URL</label>
                         <div class="input-wrapper">
                             <input 
                                 type="url" 
@@ -27,28 +26,23 @@
                                 placeholder="https://example.com"
                                 required
                             >
-                            <button type="submit" id="submitBtn">
-                                <span class="btn-text">Scraper</span>
-                                <span class="btn-loader" style="display: none;">⏳</span>
+                            <button type="submit" id="submitBtn" class="btn-primary">
+                                <span class="btn-text">Scrape</span>
+                                <span class="btn-loader" style="display: none;">...</span>
                             </button>
                         </div>
-                        <small class="hint">Entrez une URL valide (HTTP ou HTTPS)</small>
                     </div>
                 </form>
             </section>
 
-            <!-- Messages -->
             <div class="message error" id="error" style="display: none;"></div>
             <div class="message success" id="success" style="display: none;"></div>
 
-            <!-- Résultats -->
-            <section class="results-section" id="results" style="display: none;">
-                <!-- Les résultats seront injectés ici par JavaScript -->
-            </section>
+            <section class="results-section" id="results" style="display: none;"></section>
         </main>
 
         <footer>
-            <p>Développé avec ❤️ | <a href="#" id="clearCache">Vider le cache</a></p>
+            <p><a href="#" id="clearCache">Clear Cache</a></p>
         </footer>
     </div>
 

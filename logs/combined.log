@@ -1,9 +1,0 @@
-2025-12-11 14:55:26 [INFO]: 🚀 Serveur démarré sur http://localhost:3000
-2025-12-11 14:55:26 [INFO]: 📝 Environment: development
-2025-12-11 14:55:43 [INFO]: POST /api/scrape
-2025-12-11 14:55:43 [INFO]: Début du scraping: https://laravel.com/docs/12.x/facades#introduction
-2025-12-11 14:55:44 [INFO]: Scraping réussi: https://laravel.com/docs/12.x/facades#introduction
-2025-12-11 14:56:15 [INFO]: POST /scrape
-2025-12-11 14:56:53 [INFO]: POST /api/scrape
-2025-12-11 14:56:53 [INFO]: Début du scraping: https://www.fashionnova.com/
-2025-12-11 14:56:54 [INFO]: Scraping réussi: https://www.fashionnova.com/
