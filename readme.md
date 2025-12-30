@@ -70,7 +70,7 @@ http://localhost:3000
 
 ```
 project/
-├── server.js
+├── app.js
 ├── routes/
 │   └── scraper.js
 ├── controllers/
@@ -86,7 +86,6 @@ project/
 │   │   └── style.css
 │   └── js/
 │       └── app.js
-├── logs/
 ├── package.json
 └── README.md
 ```
