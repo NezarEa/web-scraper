@@ -79,7 +79,6 @@ project/
 │   └── scrapingService.js
 ├── utils/
 │   ├── validators.js
-│   └── logger.js
 ├── public/
 │   ├── index.html
 │   ├── css/
